@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pronóstico Hidrométrico</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #eef2f7;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            padding: 20px;
+            background-color: #2d3e50;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 4px solid #1c2733;
+        }
+
+        #menu-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 68px);
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #2d3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            text-align: left;
+            padding: 12px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .sidebar button:hover {
+            color: #b0c8e4;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: #f9fafc;
+            overflow-y: auto;
+        }
+
+        .hidden {
+             display: none;
+        }
+
+        h2 {
+            color: #2d3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+             color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        ul, ol {
+            margin: 10px 0 20px 20px;
+        }
+
+        img {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #volverMenu button {
+            background-color: #2d3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        #volverMenu button:hover {
+            background-color: #44556b;
+        }
+
+        #resultado-cdmx, #resultado-edomex {
+            background-color: #f1f4f8;
+            padding: 20px;
+            border-left: 4px solid #2d3e50;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* CENTRAR CONTENIDO DE INICIO, CDMX Y EDOMEX */
+        #inicio, #cdmx, #edomex {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+    <span id="menu-toggle" style="font-size: 24px; cursor: pointer; margin-right: 20px;">&#9776;</span>
+    Pronóstico Hidrométrico
+</header>
+
+    <div class="container">
+        <nav class="sidebar" id="sidebar">
+            <button onclick="mostrar('inicio')">Inicio</button>
+            <button onclick="mostrar('cdmx')">CDMX</button>
+            <button onclick="mostrar('edomex')">EDO.MEX.</button>
+            <button onclick="mostrar('creacion')">CREACIÓN</button>
+        </nav>
+
+        <div class="content">
+            <section id="inicio">
+                <h2>Bienvenido al Sistema de Pronóstico Hidrométrico</h2>
+                <p style="margin: 20px 0; max-width: 700px;">
+                    Este sistema permite consultar el nivel de riesgo de <strong>inundación</strong> y <strong>sequía</strong> 
+                    en la Ciudad de México y el Estado de México, a partir de los datos meteorológicos proporcionados por 
+                    CONAGUA. <br><br> Selecciona una de las opciones del menú para visualizar las predicciones detalladas.
+                </p>
+
+                <img src="clima.jpg" alt="Clima" width="900" style="margin: 30px 0;">
+    
+                <p style="color:#777; font-size: 14px;">
+                    Proyecto académico desarrollado para fines educativos.
+                </p>
+            </section>
+
+
+            <section id="cdmx" class="hidden">
+                <h2>Ciudad de México (CDMX)</h2>
+                <p id="resultado-cdmx">Cargando datos...</p>
+                <img src="mapa_cdmx.jpg" alt="Mapa CDMX" width="550" style="margin: 20px 0;">
+                <p>
+                    <strong>Patrones Climáticos:</strong>
+                        <li>Temporada de lluvias: Mayo - Octubre (80% de precipitación anual)</li>
+                        <li>Sequía intraestival: Canícula (Julio - Agosto)</li>
+                        <li>Temperaturas: Mín 6°C (invierno), Máx 28°C (primavera)</li>
+
+                </p>
+                </section>
+
+           <section id="edomex" class="hidden">
+                <h2>Estado de México (EDOMEX)</h2>
+                <p id="resultado-edomex">Cargando datos...</p>
+                <img src="mapa_edomex.jpg" alt="Mapa Edo. Méx." width="550" style="margin: 20px 0;">
+                <p>
+                    <strong>Patrones Climáticos:</strong>
+                    	<li>Templado subhúmedo (C(w)): Cubre la mayor parte del estado, con temperaturas moderadas y lluvias principalmente en verano</li>
+                        <li>Cálido subhúmedo (A(w)): Se encuentra en el sur, con temperaturas más altas y lluvias más abundantes en verano</li>
+                        <li>Semiárido templado (B(s)): Presente en el norte, con clima seco y temperaturas moderadas</li>
+                        <li>Frío (E(T)H) y semifrío (C(E)): Se localizan en zonas altas y montañosas, con temperaturas bajas y heladas frecuentes</li>
+
+                </p>
+                </section>
+
+
+            <section id="creacion" class="hidden">
+                <h2>¿Cómo se creó este proyecto?</h2>
+
+                <h3>Herramientas Utilizadas:</h3>
+                <ul>
+                    <li>Python 3.13</li>
+                    <li>FastAPI (para crear la API)</li>
+                    <li>Uvicorn (servidor para la API)</li>
+                    <li>Pandas (análisis de datos)</li>
+                    <li>Visual Studio Code</li>
+                    <li>HTML, CSS y JavaScript (para la interfaz web)</li>
+                </ul><br>
+
+                <h3>Funcionamiento General:</h3>
+                <ol>
+                    <li>El usuario selecciona CDMX o EDOMEX desde la página web.</li>
+                    <li>La página hace una consulta HTTP a la API local de FastAPI.</li>
+                    <li>FastAPI lee los archivos de datos (CONAGUA) con Pandas.</li>
+                    <li>Calcula el riesgo de inundación y sequía.</li>
+                    <li>Regresa los resultados a la web y los muestra al usuario.</li>
+                </ol><br>
+
+                <h3>Estructura del Proyecto:</h3>
+                <ul>
+                    <li><strong>Carpeta web</strong>:
+                        <ul>
+                            <li>index.html (página principal)</li>
+                            <li>mapa_cdmx.png</li>
+                            <li>mapa_edomex.png</li>
+                        </ul>
+                    </li>
+                    <li>main.py (backend con FastAPI)</li>
+                    <li>Archivos CSV de CONAGUA para CDMX y EDOMEX</li>
+                </ul><br>
+
+                <h3>Propósito:</h3>
+                <p>
+                    Este proyecto tiene fines educativos y sirve como demostración de cómo integrar datos meteorológicos con predicciones simples a través de una interfaz web conectada a un backend Python.
+                </p>
+            </section>
+        </div>
+    </div>
+
+<script>
+     const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+    });
+
+    function mostrar(seccion) {
+        sidebar.classList.add('hidden');
+        document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById(seccion).classList.remove('hidden');
+
+        if (seccion === 'cdmx') {
+        fetch('http://127.0.0.1:8000/predict/cdmx')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultado-cdmx').innerHTML = `
+                    <strong>Estado:</strong> ${data.estado}<br>
+                    <strong>Riesgo de Inundación:</strong> ${data.riesgo_inundacion}<br>
+                    <strong>Riesgo de Sequía:</strong> ${data.riesgo_sequia}
+                `;
+            })
+            .catch(() => {
+                document.getElementById('resultado-cdmx').textContent = 'Error al cargar los datos.';
+            });
+        }
+
+        if (seccion === 'edomex') {
+        fetch('http://127.0.0.1:8000/predict/edomex')
+            .then(response => response.json())
+            .then(data => {
+                 document.getElementById('resultado-edomex').innerHTML = `
+                    <strong>Estado:</strong> ${data.estado}<br>
+                    <strong>Riesgo de Inundación:</strong> ${data.riesgo_inundacion}<br>
+                    <strong>Riesgo de Sequía:</strong> ${data.riesgo_sequia}
+            `   ;
+            })
+            .catch(() => {
+                 document.getElementById('resultado-edomex').textContent = 'Error al cargar los datos.';
+            });
+        }
+
+    }
+</script>
+</body>
+</html>

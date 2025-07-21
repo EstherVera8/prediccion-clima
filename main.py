@@ -4,16 +4,16 @@ import pandas as pd
 
 app = FastAPI()
 
-# Permitir CORS
+# Permitir CORS para que el frontend pueda hacer peticiones
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"], # Permite solicitudes desde cualquier origen
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Leer archivos
+# Rutas a los archivos CSV
 archivo_cdmx = 'conagua/CDMX.csv'
 archivo_edomex = 'conagua/ESTADO DE MEXICO.csv'
 
@@ -47,3 +47,8 @@ def predict_edomex():
     df = pd.read_csv(archivo_edomex)
     resultado = calcular_riesgo(df)
     return {"estado": "EDOMEX", **resultado}
+
+# Ruta principal para verificar que la API funciona
+@app.get("/")
+def root():
+    return {"message": "API de Inundaciones funcionando correctamente ✅"}

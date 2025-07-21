@@ -1,69 +1,99 @@
-# Predicción de Riesgos Hidrometeorológicos: Inundación y Sequía
+# Sistema de Predicción Hidrométrica CDMX y EDOMEX
 
-Este proyecto permite realizar predicciones simples sobre el **riesgo de inundación y sequía** en dos zonas:  
-**CDMX** y **Estado de México**.  
-Fue desarrollado como parte del proceso de **titulación de la carrera**.
+Este proyecto predice el riesgo de **inundación** y **sequía** en la **Ciudad de México** y **Estado de México** utilizando datos meteorológicos de CONAGUA.
+
+Fue desarrollado con:
+- **FastAPI** (Backend)
+- **HTML + CSS + JavaScript** (Frontend)
+- **Pandas** (Análisis de datos)
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## ¿Cómo ejecutar?
 
-- **Python**
-- **Google Colab**
-- **FastAPI**
-- **Ngrok**
-- **HTML / CSS (FrontEnd sencillo)**
+1️ Instalar dependencias:
+```bash
+pip install fastapi uvicorn pandas
+```
+
+2️ Ejecutar el servidor:
+```bash
+uvicorn main:app --reload
+```
+
+3️ Acceder en navegador:
+- API: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- Interfaz Web: abrir `web/index.html` manualmente desde el navegador.
 
 ---
 
 ## Estructura del Proyecto
-
+```
 proyecto-inundaciones/
-├── conagua/
-│ ├── CDMX.csv
-│ └── ESTADO DE MÉXICO.csv
 ├── main.py
-├── requirements.txt
-└── EDOyCD.html
----
-
-## Cómo ejecutar el proyecto
-
-### Backend (API):
-1. Abre Google Colab.
-2. Conecta tu Drive donde están los archivos `.csv`.
-3. Ejecuta `main.py` en Colab.
-4. Expón el backend con `ngrok` para obtener tu URL.
-5. Verifica que puedas acceder: `https://TU-URL-NGROK.ngrok-free.app/predict/cdmx`
-
-### Frontend (Página Web):
-1. Abre `EDOyCD.html` en tu navegador (puedes usar **Live Server** en VSCode).
-2. Da clic en los botones **CDMX** o **EDO. MÉX.**
-3. Consulta el resultado.
+├── conagua/
+│   ├── CDMX.csv
+│   ├── ESTADO DE MEXICO.csv
+├── web/
+│   ├── index.html
+│   ├── mapa_cdmx.png
+│   ├── mapa_edomex.png
+├── README.md
+```
 
 ---
 
-## Qué hace el proyecto
-
-Este proyecto calcula un **índice de riesgo hídrico** a partir de los datos meteorológicos provistos en los archivos CSV:
-
-- **Precipitación**
-- **Evaporación**
-- **Temperaturas máximas y mínimas**
-
-Y devuelve un estimado sencillo de:
--  **Riesgo de Inundación**
--  **Riesgo de Sequía**
+## Funcionalidades
+- Predicción de riesgo de **inundación** y **sequía**.
+- Visualización de resultados por estado.
+- Mapas, patrones climáticos y explicación del proceso.
 
 ---
 
-##  Objetivo académico
+## Proyecto.
 Este proyecto fue realizado como parte de mi **titulación profesional** para demostrar habilidades de:
-- Programación en Python
-- Análisis de datos meteorológicos
-- Desarrollo de APIs
-- Conexión Frontend - Backend
 
+- Desarrollo Backend
+
+    - Uso de FastAPI para crear servicios RESTful.
+    - Creación de rutas HTTP para consumo de datos.
+    - Manejo de frameworks modernos de Python.
+
+- Programación en Python
+    - Manipulación de datos con pandas.
+    - Lógica para cálculos matemáticos e interpretación de datos climatológicos.
+    - Buenas prácticas de organización de código.
+
+- Desarrollo Frontend Básico
+    - Creación de páginas web estáticas usando HTML, CSS y JavaScript.
+    - Diseño de interfaz sencilla, limpia y funcional.
+    - Implementación de menús y navegación.
+
+- Integración Backend + Frontend
+    - Comunicación entre el servidor FastAPI y la página web.
+    - Diseño de un flujo completo para que el usuario pueda consultar predicciones de forma amigable.
+
+- Visualización y Análisis de Datos
+    - Aplicación de análisis básico de datos meteorológicos.
+    - Interpretación de información para generar resultados comprensibles.
+    - Visualización de resultados mediante mapas e interfaces.
+
+- Estructuración de Proyectos
+    - Organización de carpetas y archivos de un proyecto profesional.
+    - Documentación clara (README.md, PDF explicativo).
+
+- Herramientas y Entornos
+    - Manejo de PowerShell, Visual Studio Code.
+    - Comprensión de entornos virtuales y dependencias.
+    - Conocimientos básicos de despliegue local.
+
+---
+
+- Habilidades Académicas
+    - Redacción técnica y explicación de procesos.
+    - Capacidad para estructurar proyectos con fines académicos.
+    - Comunicación visual de datos y resultados.
+    
 ---
 
 ## Autor
